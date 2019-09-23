@@ -8,9 +8,8 @@ const MarkerView = ({ position, details }) => {
     // TODO: Render marker details
     return (
       <p>
-        A pretty CSS3 popup.
-        <br />
-        Easily customizable.
+        Lisbon. <br />
+        Insert details here.
       </p>
     );
   };
