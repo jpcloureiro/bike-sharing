@@ -15,7 +15,7 @@ const networks = () => {
 };
 
 const stations = id => {
-  const urlPath = `networks/${id}`;
+  const urlPath = `networks/${id}?fields=stations`;
 
   return requester.get(urlPath);
 };
