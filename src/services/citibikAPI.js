@@ -4,25 +4,20 @@ const BASE_URL = 'http://api.citybik.es/v2/';
 
 const requester = new Requester(BASE_URL);
 
-export const cancelAll = () => requester.cancelAll();
+const cancelAll = () => requester.cancelAll();
 
-export const cancelKey = key => requester.cancelRequest(key);
+const cancelKey = key => requester.cancelRequest(key);
 
-const networks = () => {
+const getNetworks = () => {
   const urlPath = `networks`;
 
   return requester.get(urlPath);
 };
 
-const stations = id => {
+const getStationsByNetwork = id => {
   const urlPath = `networks/${id}?fields=stations`;
 
   return requester.get(urlPath);
 };
 
-export default {
-  cancelAll,
-  cancelKey,
-  networks,
-  stations,
-};
+export default { cancelAll, cancelKey, getNetworks, getStationsByNetwork };
