@@ -14,10 +14,7 @@ class Requester {
     }
   }
 
-  send = (
-    urlPath,
-    { cancelKey = null, request, extraHeaders = null } = {}
-  ) => {
+  send = (urlPath, { cancelKey = null, request, extraHeaders = null } = {}) => {
     const options = { ...this.options };
     if (extraHeaders) {
       options.headers = { ...options.headers, ...extraHeaders };

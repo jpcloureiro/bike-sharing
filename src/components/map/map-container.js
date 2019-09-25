@@ -2,24 +2,31 @@ import React, { useContext, useEffect } from 'react';
 
 import { Context } from '../../context/Context';
 
-import citibikAPI from '../../services/citibikAPI';
+import { CityBikAPI } from '../../services';
 
 import MapView from './map-view';
 
-export const Layers = { 0: 'Networks', 1: 'Stations' };
+import { Layers } from '../../helpers';
 
 const MapContainer = () => {
-  const { layer, changeLayer } = useContext(Context);
+  const {
+    state: { layer, networks, stations },
+    changeLayer,
+    updateNetworks,
+    updateStations,
+  } = useContext(Context);
+
   const getData = async layerId => {
     let result = {};
     switch (layerId) {
-      case 0: {
-        result = await citibikAPI.networks();
+      case Layers.networks: {
+        result = await CityBikAPI.getNetworks();
+        updateNetworks(result.networks);
         if (result) console.log(result);
         break;
       }
-      case 1: {
-        result = await citibikAPI.stations(1);
+      case Layers.stations: {
+        result = await CityBikAPI.getStationsByNetwork(1);
         if (result) console.log(result);
         break;
       }
@@ -33,10 +40,18 @@ const MapContainer = () => {
     getData(layerId);
   };
 
+  useEffect(() => {
+    if (Object.keys(networks) < 1) getData(Layers.networks);
+  });
 
   return (
     <div>
-      <MapView onLayerChange={handleLayerChange} layer={layer} />
+      <MapView
+        onLayerChange={handleLayerChange}
+        layer={layer}
+        networks={networks}
+        stations={stations}
+      />
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 
+import { Layers } from '../helpers';
+
 const Context = createContext();
 
 const initialState = {
-  layer: 0,
-  networks: {},
-  stations: {},
+  layer: Layers.networks,
+  networks: [],
+  stations: [],
 };
 
 const actions = {
@@ -65,6 +67,8 @@ const ContextProvider = ({ children }) => {
     updateNetworks,
     updateStations,
   };
+
+  console.log(defaultContext);
 
   return <Context.Provider value={defaultContext}>{children}</Context.Provider>;
 };
